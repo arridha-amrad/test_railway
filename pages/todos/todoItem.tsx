@@ -9,6 +9,9 @@ interface IProps {
 
 const TodoItem: FC<IProps> = ({ todo }) => {
   const navigate = useRouter();
+  if (!todo) {
+    return null;
+  }
   return (
     <ListItem>
       <Box

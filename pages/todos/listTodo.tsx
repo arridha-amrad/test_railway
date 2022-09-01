@@ -6,11 +6,18 @@ import TodoItem from './todoItem';
 
 const TodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const refEffect = useRef<boolean>(false);
 
   const getTodos = async () => {
-    const { data } = await axios.get('/api/todos');
-    setTodos(data);
+    try {
+      const { data } = await axios.get('/api/todos');
+      setTodos(data);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -24,9 +31,11 @@ const TodoList = () => {
 
   return (
     <List>
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
+      {isLoading ? (
+        <p>loading...</p>
+      ) : (
+        todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
+      )}
     </List>
   );
 };
