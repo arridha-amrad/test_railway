@@ -3,16 +3,25 @@ import { Container } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react';
 import TodoList from './todos/listTodo';
 import TodoInput from './todos/todoInput';
+import Head from 'next/head';
 
 const Home: NextPage = () => {
-  document.title = 'Home';
   return (
-    <Box mt={4}>
-      <Container>
-        <TodoInput />
-        <TodoList />
-      </Container>
-    </Box>
+    <>
+      <Head>
+        <title>Todo List</title>
+        <meta property="og:title" content="My page title" key="title" />
+      </Head>
+      <Head>
+        <meta property="og:title" content="My new title" key="title" />
+      </Head>
+      <Box mt={4}>
+        <Container>
+          <TodoInput />
+          <TodoList />
+        </Container>
+      </Box>
+    </>
   );
 };
 
